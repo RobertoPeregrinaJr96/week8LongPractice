@@ -1,7 +1,12 @@
-const catNames = require('cat-names');
-const { DoublyLinkedListNode, DoublyLinkedList } = require('./memory.js')
+// import catName from "./names"
+// import { DoublyLinkedListNode, DoublyLinkedList } from './temp-memory'
+// default HTML
+const defaultHTML = () => {
+    let h1 = document.body.createElement("h1")
+    h1.innerHtml = "Cats"
+}
 
-const staticStyle = () => {
+const defaultStyle = () => {
     // ------body------
     document.body.style.backgroundColor = "white"
     document.body.style.color = "black"
@@ -9,6 +14,23 @@ const staticStyle = () => {
     document.body.style.justifyContent = "center"
     document.body.style.alignItems = "center"
 }
+
+
+
+// events
+
+
+
+
+
+
+
+
+
+
+
+
+
 const relStyle = () => {
     document.style.width = "5rem"
     document.style.height = "5rem"
@@ -46,46 +68,33 @@ const imageFetcher = async () => {
 }
 
 const imageNameFetch = async () => {
-    catNames.all;
-    //=> ['Abby', 'Angel', …]
-
-    let name = catNames.random();
+    let randomIndex = Math.floor(Math.random() * 100)
     //=> 'Max'
-    console.log(name)
-    return name
+    catName[randomIndex]
+    console.log(catName)
+    return catName
 }
 
-/*
-first approach
-*/
-let refresh = document.getElementById("refresh")
+// make a node out of the current Image/Name
+let currentNode = DoublyLinkedListNode([imageFetcher(), imageNameFetch()])
 
-// the event that happens when the button is clicked
-// refresh.addEventListener("click", async () => {
-//     try {
-//         // getting id's from the HTML
-//         let catFeed = document.getElementById("cat-feed")
-//         console.log(catFeed)
-
-//         // setting attributes
-//         img.setAttribute("src", url); // assigning the newly created <img> with a "scr" attribute with the url
-
-//         figcaption.innerText = catPhoto; // assigning the img's name to the newly created figcaption
-
-//     } catch (error) {
-//         console.log("Something went wrong,Try again later")
-//     }
-// });
-
+// go back to the previous Image
 const previousImage = () => {
-
+    let previous = currentNode.tail
+    if (previous) {
+        console.log(previous)
+        return previous
+    } else {
+        return console.log("NO CATS")
+    }
 }
-/*
-second approach
-*/
+
 // to cycle through to the next image
 let next = document.getElementById("next-Image")
 next.addEventListener("click", () => {
+    let url = imageFetcher();
+    let name = imageNameFetch();
+    DoublyLinkedList.push([url, name])
 
 })
 // to cycle through the previous image
@@ -95,11 +104,11 @@ previous.addEventListener("click", () => {
 })
 
 
-
 /*
 - load the default styling
 - load our default html
 */
-window.onload = async () => {
-
+window.onload = () => {
+    defaultHTML();
+    staticStyle();
 };

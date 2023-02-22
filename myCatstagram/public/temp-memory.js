@@ -29,4 +29,4 @@ class DoublyLinkedList {
 }
 
 
-module.exports = { DoublyLinkedListNode, DoublyLinkedList }
+export default { DoublyLinkedListNode, DoublyLinkedList }
