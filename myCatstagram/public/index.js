@@ -1,71 +1,105 @@
+const catNames = require('cat-names');
+const { DoublyLinkedListNode, DoublyLinkedList } = require('./memory.js')
 
-window.onload = async () => {
-
-    // style
+const staticStyle = () => {
     // ------body------
     document.body.style.backgroundColor = "white"
     document.body.style.color = "black"
     document.body.style.display = "flex"
     document.body.style.justifyContent = "center"
     document.body.style.alignItems = "center"
+}
+const relStyle = () => {
+    document.style.width = "5rem"
+    document.style.height = "5rem"
+}
+const elementsForImages = () => {
+    // making elements
+    let listItem = document.createElement("li")
+    let figure = document.createElement("figure");
+    let img = document.createElement("img");
+    let figcaption = document.createElement("figcaption")
+    // appending elements
+    figure.append(img, figcaption)
+    console.log(figure)
 
-    let refresh = document.getElementById("refresh")
+    listItem.appendChild(figure)
+    console.log(listItem)
 
-    // the event that happens when the button is clicked
-    refresh.addEventListener("click", async () => {
-        // making elements
-        let listItem = document.createElement("li")
-        let figure = document.createElement("figure");
-        let img = document.createElement("img");
-        let figcaption = document.createElement("figcaption")
+    catFeed.append(listItem)
+    console.log(catFeed)
+}
 
-        // the guts
-        try {
-            // image
-            const res = await fetch("https://api.thecatapi.com/v1/images/search");
-            // const res = await fetch("https://cdn2.thecatapi.com/images/MTgwNTYxMg.jpg")
-            console.log("res", res) // [{...}]
+const imageFetcher = async () => {
+    // image
+    const res = await fetch("https://api.thecatapi.com/v1/images/search");
+    // const res = await fetch("https://cdn2.thecatapi.com/images/MTgwNTYxMg.jpg")
+    console.log("res", res) // [{...}]
 
-            const data = await res.json(); // {...}
-            console.log("data", data)
+    const data = await res.json(); // {...}
+    console.log("data", data)
 
-            const url = data[0].url; // keying into the object to grab the property
-            console.log("url", url);
+    const url = data[0].url; // keying into the array to grab the object to use the "url" property
+    console.log("url", url);
 
-            const urlParts = url.split("/"); // seperating the string by its "/" to get a array
-            console.log("url parts ", urlParts);
+    return url
+}
 
-            const catPhoto = urlParts[4]; // grabbing index 3 from the array
-            console.log("catPhoto", catPhoto);
+const imageNameFetch = async () => {
+    catNames.all;
+    //=> ['Abby', 'Angel', …]
 
-            // getting id's from the HTML
-            let catFeed = document.getElementById("cat-feed")
-            console.log(catFeed)
+    let name = catNames.random();
+    //=> 'Max'
+    console.log(name)
+    return name
+}
 
-            // setting attributes
-            img.setAttribute("src", url); // assigning the newly created <img> with a "scr" attribute with the url
+/*
+first approach
+*/
+let refresh = document.getElementById("refresh")
 
-            figcaption.innerText = catPhoto; // assigning the img's name to the newly created figcaption
+// the event that happens when the button is clicked
+// refresh.addEventListener("click", async () => {
+//     try {
+//         // getting id's from the HTML
+//         let catFeed = document.getElementById("cat-feed")
+//         console.log(catFeed)
 
-            // appending elements
-            figure.append(img, figcaption)
-            console.log(figure)
+//         // setting attributes
+//         img.setAttribute("src", url); // assigning the newly created <img> with a "scr" attribute with the url
 
-            listItem.appendChild(figure)
-            console.log(listItem)
+//         figcaption.innerText = catPhoto; // assigning the img's name to the newly created figcaption
 
-            catFeed.append(listItem)
-            console.log(catFeed)
-        } catch (error) {
-            console.log("Somthing went wrong,Try again later")
-        }
+//     } catch (error) {
+//         console.log("Something went wrong,Try again later")
+//     }
+// });
+
+const previousImage = () => {
+
+}
+/*
+second approach
+*/
+// to cycle through to the next image
+let next = document.getElementById("next-Image")
+next.addEventListener("click", () => {
+
+})
+// to cycle through the previous image
+let previous = document.getElementById("previous-Image")
+previous.addEventListener("click", () => {
+
+})
 
 
 
+/*
+- load the default styling
+- load our default html
+*/
+window.onload = async () => {
 
-
-
-        // style
-        document.body.style.backgroundColor = "beige"
-    });
 };
