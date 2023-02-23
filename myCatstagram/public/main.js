@@ -25,13 +25,19 @@ const fetchImage = async () => {
         // Converts to JSON
         const kittenData = await kittenResponse.json();
         // console.log(kittenData);
+        const kittenImgUrl = kittenData[0].url;
         const kittenImg = document.querySelector("img");
-        kittenImg.src = kittenData[0].url;
+        kittenImg.src = kittenImgUrl;
+
+        // After the image is finished loading, reset the score and comments
+        kittenImg.addEventListener('load', () => {
+            resetScore();
+            resetComments();
+        });
     } catch (e) {
         console.log("Failed to fetch image", e);
     }
 };
-
 
 const createNewKittenBtn = () => {
     // Create "New Kitten" button
